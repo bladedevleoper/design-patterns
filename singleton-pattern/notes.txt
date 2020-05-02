@@ -1,0 +1,125 @@
+Singleton Patterns:
+-------------------
+
+A singleton pattern is in general an anti-pattern.
+
+Wikipedia mentions the following:-
+
+An anti pattern is a common response to a recurring problem that is usually ineffective and risks being highly counterproductive.
+
+Singleton pattern definition:
+-----------------------------
+Source: wikipedia:
+-----------------------------
+
+- In software engineering, the singleton pattern is a design pattern that restricts the instantiation of a class to one object.
+This is useful when exactly one object is needed to coordinate actions across the system.
+
+
+
+# In a brief overview from what the above is saying:
+- basically there can only be one instance of that object.
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+An example from the video, Alex is looking at providing an application configuration as an example.
+
+```
+
+class Singleton
+{
+
+    protected static $instance;
+
+    protected function __construct()
+    {
+        //basically does nothing, it's purpose is to stop instantiation from outside the class
+    }
+
+    protected function __clone()
+    {
+        // this will basically stop the process of cloning of the object from outside of the class
+    }
+
+    public static function getInstance()
+    {
+        if (self::$instance === null) {
+            self::$instance new static;
+        }
+
+        return $instance;
+    }
+
+}
+
+
+```
+
+
+The above class acts as a base class, so it can be extended
+
+```
+
+class Config extends Singleton
+{
+    public $data = [
+        'db' => [
+        'host' => '127.0.0.1'
+        ]
+    ];
+}
+
+```
+
+//this will bring us back one instance of Config
+$config =  Config::getInstance();
+
+//we wont be able to do the following, as the constructor is protected
+$anotherConfig = new Config();
+
+//we wont be able to do the following, as the __clone is protected
+$moreConfig = clone $config;
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Pros:
+-----
+
+1. Good for only having one instance.
+
+
+Cons:
+-----
+
+1. Hard to scale later on in a project life cycle.
+2. Tied down to that one static method.
+
+
+
+### Overhead, stick to dependency injection instead of a Singleton pattern. ##
+
+//with dependency injection, we can swap out if we need to change anything.
+class User
+
+use Config;
+{
+    protected $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
+
+    public function register()
+    {
+        //use the db from our config class
+        $this->config->db;
+    }
+
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------
+

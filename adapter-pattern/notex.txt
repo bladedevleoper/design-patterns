@@ -1,0 +1,52 @@
+Adapter Pattern Notes:
+----------------------
+
+# The adapter pattern is probably one of the easiest patterns to learn.
+
+Adapter Pattern definition:
+---------------------------
+
+- In software engineering, the adapter pattern is a software design pattern that allows the interface of an existing class to be used from another interface.
+- It is often used to make existing classes work with others without modifying their source code.
+
+
+
+---------------------------------------------------------------------------
+
+Reason why to use the Adapter Pattern?
+--------------------------------------
+//
+//explain why the adapter pattern is good here
+
+---------------------------------------------------------------------------
+
+So with the adapter pattern, we would want to create an interface for the type of things we want to do.
+
+
+- An adapter is taking a class and providing a wrapper for it. The wrapper will then lay over the existing class (i.e. Youtube class example),
+- So we can then perform our own methods to interact with the existing class methods.
+- This is achieved by doing an interface, where we define the methods we want to use.
+- we then create a class to implement that interface.
+
+
+3rd Party Class:
+----------------
+
+```
+/*
+    - This would be some dependency pulled in from composer.
+    - issue here is that the person who is maintaining the package could change a method name or
+    - change the functionality of a method
+*/
+
+class YouTube
+{
+    public function getVideoViewCounts($id)
+    {
+        return 5000;
+    }
+}
+
+
+```
+
