@@ -11,7 +11,7 @@ $adapter = new FacebookAdapter($facebook);
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Adapter Pattern Practice Example</title>
+    <title>Adapter Pattern - Practice Example</title>
     <style>
         .bottom{
             margin-bottom: 20px;
@@ -22,11 +22,9 @@ $adapter = new FacebookAdapter($facebook);
          <?php foreach ($adapter->getUserPosts('jamesjones21') as $post) : ?>
             <div class="bottom">
                 <div>
-                    <label>Post Title:</label>
+                    <label>Post Title:</label><span> <?= $post['title']; ?></span>
                 </div>
-                <div>
-                    <span><?= $post['title']; ?></span>
-                </div>
+
                 <div>
                     <label>Post Date: <i><?= $post['date-posted']; ?></i></label>
                 </div>
