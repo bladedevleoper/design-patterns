@@ -15,8 +15,11 @@ Adapter Pattern definition:
 
 Reason why to use the Adapter Pattern?
 --------------------------------------
-//
-//explain why the adapter pattern is good here
+- it is often used to take existing classes and make them work with other classes without modifying their source code.
+
+Some Scenarios:
+---------------
+-  Most uses is taking a third party class and using the adapter pattern to create your own wrapper for the class.
 
 ---------------------------------------------------------------------------
 
@@ -49,4 +52,70 @@ class YouTube
 
 
 ```
+
+
+The Adapter Interface:
+----------------------
+
+/*
+    - Interfaces are created to bind a contract with the class with the methods we want that class to use.
+    - Here we can then define the methods we want to implement.
+    - We will then use the interface to implement a wrapper class which then becomes the adapter for the 3rd party class.
+
+    Naming convention:
+    <ServiceName>AdapterInterface
+
+    #side notes:
+    - only public methods within interfaces
+    - no properties
+*/
+
+
+interface ServiceAdapterInterface
+{
+
+    public function getVideoCount($id);
+
+}
+
+
+
+The wrapper class:
+------------------
+
+/*
+    - the wrapper class will now implement the adapter interface.
+    - the wrapper will then use the methods that are within the interface.
+    - the wrapper class will have a constructor type hinted to the 3rd party class, which we will accept the 3rd party object
+      through dependency injection.
+    - The wrapper class will have a protected property, which will then be assigned the 3rd party object through the constructor.
+    - We can interact with that object and use our methods to call the 3rd party object methods.
+
+
+    Wrapper Naming Convention:
+        <ServiceName>Adapter
+*/
+
+
+class YouTubeAdapter implements ServiceAdapterInterface
+{
+
+    protected $service;
+
+    public function __construct(YouTube $service)
+    {
+
+        $this->service = $service;
+    }
+
+
+    public function getVideoCount($id)
+    {
+
+        return $this->service->getVideoViewCounts($id);
+
+    }
+
+}
+
 
